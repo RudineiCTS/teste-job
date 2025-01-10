@@ -4,6 +4,8 @@ const fs = require('fs');
 // Enquanto K < INDICE faça { K = K + 1; SOMA = SOMA + K; }
 // Imprimir(SOMA);
 // Ao final do processamento, qual será o valor da variável SOMA?
+
+//necessario chamar a função para testar -------------------------------------------------------------------
 function sumValue(){
     const index =13
     let soma = 0
@@ -37,7 +39,7 @@ const rl = readline.Interface({
     input:process.stdin,
     output: process.stdout
 })
-
+//descomente o codigo para testar -------------------------------------------------------------------
 // rl.question('Digite um número para verificar se ele está na sequência de Fibonacci: ', (answer) => {
 //     findItemInFibonacci(parseInt(answer));
 //     rl.close();
@@ -95,7 +97,64 @@ function findMedia(data){
     })
     const med  =media/data.length
 
-    if()
+    let result = [];
+    for(item in data){
+        if(data[item].faturamento > med){
+            result.push(data[item].dia);
+        }
+    }
+    console.log('Dias em que o valor de faturamento foi superior à média:', result);
 
 }
-readJsonFaturamento();
+//descomente o codigo para testar -------------------------------------------------------------------
+// readJsonFaturamento();
+
+
+// 4) Dado o valor de faturamento mensal de uma distribuidora, detalhado por estado:
+// • SP – R$67.836,43
+// • RJ – R$36.678,66
+// • MG – R$29.229,88
+// • ES – R$27.165,48
+// • Outros – R$19.849,53
+//Escreva um programa na linguagem que desejar onde calcule o percentual de representação que cada estado teve dentro do valor total mensal da distribuidora.  
+
+function calcularPercentualFaturamento(estados) {
+    const faturamentoTotal = estados.reduce((total, estado) => total + estado.faturamento, 0);
+
+    console.log(`Faturamento total: R$ ${faturamentoTotal.toFixed(2)}`);
+
+    estados.forEach(estado => {
+        const percentual = (estado.faturamento / faturamentoTotal) * 100;
+        console.log(`${estado.nome}: ${percentual.toFixed(2)}%`);
+    });
+}
+
+const faturamentoPorEstado = [
+    { nome: "SP", faturamento: 67836.43 },
+    { nome: "RJ", faturamento: 36678.66 },
+    { nome: "MG", faturamento: 29229.88 },
+    { nome: "ES", faturamento: 27165.48 },
+    { nome: "Outros", faturamento: 19849.53 }
+];
+////descomente o codigo para testar -------------------------------------------------------------------
+//calcularPercentualFaturamento(faturamentoPorEstado);
+
+// 5) Escreva um programa que inverta os caracteres de um string.
+
+// IMPORTANTE:
+// a) Essa string pode ser informada através de qualquer entrada de sua preferência ou pode ser previamente definida no código;
+// b) Evite usar funções prontas, como, por exemplo, reverse;
+
+
+rl.question('Digite alguma coisa para ser invertida: ', (answer) => {
+    invertString(answer);
+    rl.close();
+});
+
+function invertString(str) {
+    let reversed = '';
+    for (let i = str.length - 1; i >= 0; i--) {
+        reversed += str[i];
+    }
+    console.log('String invertida:', reversed);
+}

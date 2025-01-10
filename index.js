@@ -61,7 +61,7 @@ function readJsonFaturamento(){
     fs.readFile(file, 'utf8', (err, data) => {
         if (err) throw err;
 
-        const {faturamento_diario} = JSON.parse(data);
+        const faturamento_diario = JSON.parse(data);
         findMinorValue(faturamento_diario)
         findMaxValue(faturamento_diario)
         findMedia(faturamento_diario)
@@ -69,20 +69,20 @@ function readJsonFaturamento(){
     )
 }
 function findMinorValue(data) { 
-    let min = data[0].faturamento;
+    let min = data[0].valor;
     for(let i = 1; i < data.length; i++){
-        if(data[i].faturamento < min){
-            min = data[i].faturamento;
+        if(data[i].valor < min && data[i].valor !== 0.0){
+            min = data[i].valor;
         }
     }
     console.log('Menor valor de faturamento:', min);
 
 }
 function findMaxValue(data) {
-    let max = data[0].faturamento;
+    let max = data[0].valor;
     for(let i = 1; i < data.length; i++){
-        if(data[i].faturamento > max){
-            max = data[i].faturamento;
+        if(data[i].valor > max){
+            max = data[i].valor;
         }
     }
     console.log('Maior valor de faturamento:', max);
@@ -91,15 +91,15 @@ function findMaxValue(data) {
 function findMedia(data){
     const media = data.reduce((acc, currentValue, index)=>{
         if(index === 1){
-            return acc.faturamento + currentValue.faturamento
+            return acc.valor + currentValue.valor
         }
-        return acc + currentValue.faturamento;
+        return acc + currentValue.valor;
     })
     const med  =media/data.length
 
     let result = [];
     for(item in data){
-        if(data[item].faturamento > med){
+        if(data[item].valor > med){
             result.push(data[item].dia);
         }
     }
@@ -107,7 +107,7 @@ function findMedia(data){
 
 }
 //descomente o codigo para testar -------------------------------------------------------------------
-// readJsonFaturamento();
+readJsonFaturamento();
 
 
 // 4) Dado o valor de faturamento mensal de uma distribuidora, detalhado por estado:
@@ -146,10 +146,10 @@ const faturamentoPorEstado = [
 // b) Evite usar funções prontas, como, por exemplo, reverse;
 
 
-rl.question('Digite alguma coisa para ser invertida: ', (answer) => {
-    invertString(answer);
-    rl.close();
-});
+// rl.question('Digite alguma coisa para ser invertida: ', (answer) => {
+//     invertString(answer);
+//     rl.close();
+// });
 
 function invertString(str) {
     let reversed = '';
